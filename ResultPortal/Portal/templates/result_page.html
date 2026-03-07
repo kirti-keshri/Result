@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8">
+
+    {% if error %}
+        <div class="bg-red-100 text-red-700 p-4 rounded-lg">
+            {{error}}
+        </div>
+    {% else %}
+
+        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">
+            {{school.name}} - {{exam.name}} ({{exam.year}})
+        </h2>
+
+        <div class="mb-6 flex justify-between text-gray-700">
+            <p><strong>Name:</strong> {{student.name}}</p>
+            <p><strong>Registration Number:</strong> {{student.reg_no}}</p>
+        </div>
+
+        <table class="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="py-2 px-4 text-left">Subject</th>
+                    <th class="py-2 px-4 text-center">Max</th>
+                    <th class="py-2 px-4 text-center">Pass</th>
+                    <th class="py-2 px-4 text-center">Obtained</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                {% for r in rows %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4">{{r.subject}}</td>
+                    <td class="py-2 px-4 text-center">{{r.max}}</td>
+                    <td class="py-2 px-4 text-center">{{r.pass}}</td>
+                    <td class="py-2 px-4 text-center font-semibold">
+                        {{r.obtained}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Total</p>
+                <p class="text-lg font-bold">{{total_obt}} / {{total_max}}</p>
+            </div>
+
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <p class="text-sm text-gray-500">Percentage</p>
+                <p class="text-lg font-bold">{{percentage}}%</p>
+            </div>
+
+            <div class="p-4 rounded-lg 
+                {% if result_status == 'PASS' %}
+                    bg-green-100 text-green-700
+                {% else %}
+                    bg-red-100 text-red-700
+                {% endif %}
+            ">
+                <p class="text-sm">Result</p>
+                <p class="text-lg font-bold">{{result_status}}</p>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

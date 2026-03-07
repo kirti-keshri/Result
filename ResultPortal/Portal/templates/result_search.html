@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flex items-center justify-center">
+
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6 text-blue-600">
+            Result Search
+        </h2>
+
+        <form action="{% url 'result_view' %}" method="get" class="space-y-4">
+
+            <div>
+                <label class="block text-sm font-medium text-gray-600">
+                    School Code
+                </label>
+                <input type="text" name="school_code"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                       required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-600">
+                    Registration Number
+                </label>
+                <input type="text" name="reg_no"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                       required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-600">
+                    Select Exam
+                </label>
+                <select name="exam_id"
+                        class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+                        required>
+                    {% for e in exams %}
+                        <option value="{{e.id}}">
+                            {{e.school.name}} - {{e.name}} ({{e.year}})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                View Result
+            </button>
+
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

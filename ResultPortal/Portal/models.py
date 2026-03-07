@@ -39,13 +39,17 @@ class Subject(models.Model):
 
 class Student(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    reg_no = models.CharField(max_length=50,unique=True)
+    reg_no = models.CharField(max_length=50)
+    roll_no = models.CharField(max_length=50,unique=True)
     name = models.CharField(max_length=200)
     dob = models.DateField()
-    Aadhar_no = models.CharField(unique=True)
+    Aadhar_no = models.CharField(unique=True,max_length=12)
+    email = models.EmailField(null=True,blank=True)
+    Phone = models.CharField(max_length=15,null=True,blank=True)
 
     class Meta:
-        unique_together = ('school', 'reg_no')
+        unique_together = ('school', 'reg_no'),('school','roll_no')
+
 
     def __str__(self):
         return self.name
@@ -63,5 +67,6 @@ class Mark(models.Model):
         return f"{self.student.name} - {self.subject.name}"
     
 class Role(models.Model):
-    choice = [("student","student"),("teacher","teacher"),("marks_uploader","marks_uploader")]
+    choice = [("student","student"),("teacher","teacher"),("marks_uploader","marks_uploader"),("admin","admin")]
     role = models.CharField(max_length=20,choices=choice,null=True,blank=True)
+    
