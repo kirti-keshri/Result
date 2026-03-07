@@ -70,3 +70,4 @@ class Role(models.Model):
     choice = [("student","student"),("teacher","teacher"),("marks_uploader","marks_uploader"),("admin","admin")]
     role = models.CharField(max_length=20,choices=choice,null=True,blank=True)
     
+

@@ -1,10 +1,21 @@
 from django.shortcuts import render
 from .models import *
+from django.db.models import Sum
 # Create your views here.
 
 def result_search(request):
+    schools = School.objects.filter(is_active=True).order_by('name')
     exams = Exam.objects.filter(status="PUBLISHED")
-    return render(request, "result_search.html", {"exams": exams})
+    
+    school_code = request.GET.get("school_code")
+    if school_code:
+        exams = exams.filter(school__school_code=school_code)
+
+    search_name = request.GET.get("search_name")
+    if search_name:
+        exams = exams.filter(name__icontains=search_name)
+
+    return render(request, "result_search.html", {"exams": exams, "schools": schools})
 
 def result_view(request):
     school_code = request.GET.get("school_code")
@@ -46,6 +57,15 @@ def result_view(request):
 
     percentage = round((total_obt / total_max) * 100, 2) if total_max else 0
 
+    # Logic for Grade
+    grade = "F"
+    if percentage >= 90: grade = "A+"
+    elif percentage >= 80: grade = "A"
+    elif percentage >= 70: grade = "B"
+    elif percentage >= 60: grade = "C"
+    elif percentage >= 50: grade = "D"
+    elif is_pass: grade = "E"
+
     return render(request, "result_page.html", {
         "school": school,
         "exam": exam,
@@ -54,5 +74,6 @@ def result_view(request):
         "total_obt": total_obt,
         "total_max": total_max,
         "percentage": percentage,
+        "grade": grade,
         "result_status": "PASS" if is_pass else "FAIL",
     })
