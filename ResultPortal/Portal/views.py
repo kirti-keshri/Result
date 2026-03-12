@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import *
 from django.db.models import Sum
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def result_search(request):
@@ -77,3 +80,51 @@ def result_view(request):
         "grade": grade,
         "result_status": "PASS" if is_pass else "FAIL",
     })
+    
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            
+            profile = UserProfile.objects.get(user=user)
+            
+            if profile.role == "student":
+                return redirect("student_dashboard")
+            elif profile.role == "teacher":
+                return redirect("teacher_dashboard")    
+            elif profile.role == "school_admin":
+                return redirect("school_admin_dashboard")
+            elif profile.role == "portal_admin":
+                return redirect("portal_admin_dashboard")
+            
+        return render(request, "login.html", {"error": "Invalid username or password."})
+    return render(request, "login.html")
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
+@login_required
+def student_dashboard(request):
+    profile =UserProfile.objects.get(user=request.user)
+    student = profile.student
+    return render(request, "student_dashboard.html",{"student":student})
+
+@login_required
+def teacher_dashboard(request):
+    return render(request, "teacher_dashboard.html")
+
+# @login_required
+def school_dashboard(request):
+    # profile =UserProfile.objects.get(user=request.user)
+    # school = profile.school
+    return render(request, "school_dashboard.html",)
+# {"school":school}
+
+@login_required
+def portal_dashboard(request):
+    return render(request, "portal_dashboard.html")

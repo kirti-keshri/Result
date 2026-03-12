@@ -17,11 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from Portal.views import *
+ 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",result_search, name="result_search"),  # home
     path("result/", result_view, name="result_view"),
+    path("login_view/",login_view,name="login"),
+    path("logout_view/",logout_view,name="logout"),
+    path("student_dashboard/",student_dashboard,name="student_dash"),
+    path("teacher_dashboard/",teacher_dashboard,name="teacher_dash"),
+    path("school_dashboard/",school_dashboard,name="school_dash"),
+    path("portal_dashboard/",portal_dashboard,name="portal_dash"),
 
 ]

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -46,6 +47,10 @@ class Student(models.Model):
     Aadhar_no = models.CharField(unique=True,max_length=12)
     email = models.EmailField(null=True,blank=True)
     Phone = models.CharField(max_length=15,null=True,blank=True)
+    Class = models.CharField(max_length=20)
+    section = models.CharField(max_length=20)
+    
+    
 
     class Meta:
         unique_together = ('school', 'reg_no'),('school','roll_no')
@@ -66,8 +71,16 @@ class Mark(models.Model):
     def __str__(self):
         return f"{self.student.name} - {self.subject.name}"
     
-class Role(models.Model):
-    choice = [("student","student"),("teacher","teacher"),("marks_uploader","marks_uploader"),("admin","admin")]
-    role = models.CharField(max_length=20,choices=choice,null=True,blank=True)
+class UserProfile(models.Model):
+    role_choices = [("student", "Student"), ("teacher", "Teacher"),("school_admin", "School_Admin"),("marks_uploader", "Marks Uploader"),("portal_admin", "Portal Admin")]
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=role_choices)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True, blank=True)
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, null=True, blank=True)
+
+
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
     
+
 
