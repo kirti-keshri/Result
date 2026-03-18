@@ -89,15 +89,15 @@ def login_view(request):
         if user is not None:
             login(request, user)
             
-            profile = UserProfile.objects.get(user=user)
+            role = Role.objects.get(user=user)
             
-            if profile.role == "student":
+            if role.role == "student":
                 return redirect("student_dashboard")
-            elif profile.role == "teacher":
+            elif role.role == "teacher":
                 return redirect("teacher_dashboard")    
-            elif profile.role == "school_admin":
+            elif role.role == "school_admin":
                 return redirect("school_admin_dashboard")
-            elif profile.role == "portal_admin":
+            elif role.role == "portal_admin":
                 return redirect("portal_admin_dashboard")
             
         return render(request, "login.html", {"error": "Invalid username or password."})
@@ -110,7 +110,7 @@ def logout_view(request):
 
 @login_required
 def student_dashboard(request):
-    profile =UserProfile.objects.get(user=request.user)
+    profile =Role.objects.get(user=request.user)
     student = profile.student
     return render(request, "student_dashboard.html",{"student":student})
 
@@ -121,10 +121,12 @@ def teacher_dashboard(request):
 # @login_required
 def school_dashboard(request):
     # profile =UserProfile.objects.get(user=request.user)
-    # school = profile.school
+    # school = role.school
     return render(request, "school_dashboard.html",)
 # {"school":school}
 
 @login_required
 def portal_dashboard(request):
-    return render(request, "portal_dashboard.html")
+    schools = School.objects.all()
+    data = {"schools":schools}
+    return render(request, "portal_dashboard.html",data)
