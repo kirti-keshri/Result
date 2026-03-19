@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="p-6 bg-gray-200">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold">Schools</h2>
+        <a href="{% url 'add_school' %}" class="bg-teal-500 text-white px-4 py-3 rounded-lg">Add School</a>
+    </div>
+    <div class="bg-white rounded-2xl p-5">
+        <table class=" w-full border border-gray-300">
+            <thead class="bg-gray-200"> 
+                <tr>
+                    <th class="border border-gray-400 p-3">Name</th>
+                    <th class="border border-gray-400 p-3">Code</th>
+                    <th class="border border-gray-400 p-3">Board</th>
+                    <th class="border border-gray-400 p-3">Phone</th>
+                    <th class="border border-gray-400 p-3">Email</th>
+                    <th class="border border-gray-400 p-3">Status</th>
+                    <th class="border border-gray-400 p-3">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    {% for school in schools %}
+    <tr>
+        <td class="border border-gray-400 p-3">{{school.code}}</td>
+        <td class="border border-gray-400 p-3">{{school.code}}</td>
+        <td class="border border-gray-400 p-3">{{school.board}}</td>
+        <td class="border border-gray-400 p-3">{{school.phone}}</td>
+        <td class="border border-gray-400 p-3">{{school.email}}</td>
+        <td class="border border-gray-400 p-3">
+            {% if school.is_active %}
+                <span class=""
+        </td>
+    </tr>
+    {% endfor %}
+</div>
+
+{% endblock %}

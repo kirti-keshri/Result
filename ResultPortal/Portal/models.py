@@ -91,7 +91,7 @@ class Student(models.Model):
    
 class Exam(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
-    year = models.CharField(max_length=9)  # 2025-2026
+    academic_year = models.ForeignKey(AcademicYear, on_delete=models.CASCADE)# 2025-2026
     name = models.CharField(max_length=100)  # Final/Half-Yearly
     status = models.CharField(
         max_length=20,
@@ -124,14 +124,15 @@ class ExamSubject(models.Model):
 
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     marks_obtained = models.IntegerField()
 
     class Meta:
-        unique_together = ('student', 'subject')
+        unique_together = ('student', 'exam','subject')
 
     def __str__(self):
-        return f"{self.student.name} - {self.subject.name}"
+        return f"{self.student.name} - {self.exam.name} - {self.subject.name}"
       
 
     

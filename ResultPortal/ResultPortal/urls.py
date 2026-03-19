@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from Portal.views import *
+from Portal.portalViews import *
  
 
 
@@ -26,9 +27,23 @@ urlpatterns = [
     path("result/", result_view, name="result_view"),
     path("login_view/",login_view,name="login"),
     path("logout_view/",logout_view,name="logout"),
-    path("student_dashboard/",student_dashboard,name="student_dash"),
-    path("teacher_dashboard/",teacher_dashboard,name="teacher_dash"),
-    path("school_dashboard/",school_dashboard,name="school_dash"),
+    
+    #portal
     path("portal_dashboard/",portal_dashboard,name="portal_dash"),
+    path("schools/",school_list,name="school_list"),
+    path("schools/add/",add_school,name="add_school"),
+    path("schools/edit/<int:school_id>/",update_school,name="update_school"),
+    path("schools/toggle/<int:school_id>/",toggle_school_status,name="toggle_school_status"),
+    
+    #school admin
+    path("school_dashboard/",school_dashboard,name="school_dash"),
+    
+    #teacher
+    path("teacher_dashboard/",teacher_dashboard,name="teacher_dash"),
+    
+    #student
+    path("student_dashboard/",student_dashboard,name="student_dash"),
+    
+    
 
 ]

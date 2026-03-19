@@ -125,8 +125,4 @@ def school_dashboard(request):
     return render(request, "school_dashboard.html",)
 # {"school":school}
 
-@login_required
-def portal_dashboard(request):
-    schools = School.objects.all()
-    data = {"schools":schools}
-    return render(request, "portal_dashboard.html",data)
+

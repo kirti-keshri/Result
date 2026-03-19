@@ -38,7 +38,7 @@
                         required>
                     {% for e in exams %}
                         <option value="{{e.id}}">
-                            {{e.school.name}} - {{e.name}} ({{e.year}})
+                            {{e.school.name}} - {{e.name}} ({{e.academic_year.batch_year}})
                         </option>
                     {% endfor %}
                 </select>
