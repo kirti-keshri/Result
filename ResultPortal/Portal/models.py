@@ -15,12 +15,13 @@ class Role(models.Model):
 class School(models.Model):
     Board_choices = [("BSEB","BSEB"),("CBSE","CBSE"),("iCSE","ISCE"),("STATE","STATE")]
     board = models.CharField(max_length = 20,choices=Board_choices,null=True,blank=True)
+    affliated = models.CharField(max_length=200)
     name= models.CharField(max_length=50)
     school_code =models.PositiveIntegerField(unique=True)
-    address = models.TextField()
-    Phone = models.CharField(max_length=15)
     email = models.EmailField(unique=True)
-    affliated = models.CharField(max_length=200)
+    phone = models.CharField(max_length=15)
+    address = models.TextField()
+    pin_code = models.IntegerField(max_length=6)
     is_active= models.BooleanField(default=True)
 
     def __str__(self):

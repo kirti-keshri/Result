@@ -22,9 +22,11 @@ from Portal.portalViews import *
 
 
 urlpatterns = [
+    #superadmin
     path('admin/', admin.site.urls),
-    path("",result_search, name="result_search"),  # home
-    path("result/", result_view, name="result_view"),
+    
+    
+    #authentication
     path("login_view/",login_view,name="login"),
     path("logout_view/",logout_view,name="logout"),
     
@@ -43,6 +45,8 @@ urlpatterns = [
     
     #student
     path("student_dashboard/",student_dashboard,name="student_dash"),
+    path("",result_search, name="result_search"),  # home
+    path("result/", result_view, name="result_view"),
     
     
 

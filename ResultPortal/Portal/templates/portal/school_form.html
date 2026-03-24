@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2 class="text-2xl font-bold p-2">Portal Dashboard</h2>
+<div class="flex gap-4 bg-gray-300">
+    <!-- sidebar -->
+  <div
+    class="flex flex-col w-2/12 bg-slate-900 text-white jutsify-end h-screen"
+  >
+    <a href="{% url 'portal_dash' %}" class="hover:bg-slate-700 p-2 rounded"
+      >Dashboard</a
+    >
+    <a href="{% url 'school_list' %}" class="hover:bg-slate-700 p-2 rounded">
+      Manage Schools</a
+    >
+    <a href="{% url 'add_school' %}" class="hover:bg-slate-700 p-2 rounded"
+      >Add School</a
+    >
+    <div class="flex flex-col">
+      <a href="" class="p-2 rounded">Logout</a>
+    </div>
+  </div>
+  <!-- form -->
+<div class="bg-gray-200 p-6  w-full">
+    <div class="max-w-2xl mx-auto bg-white rounded-2xl p-6">
+        <h1 class="text-2xl font-bold mb-6">School Form</h1>
+        <form action="" method="post" >
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded-lg">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
