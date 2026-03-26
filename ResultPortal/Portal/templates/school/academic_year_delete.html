@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-gray-200 flex items-center justify-center">
+    <div class="bg-white w-full rounded-2xl max-w-md w-full">
+         <h2 class="text-xl font-bold mb-4">Delete Academic Year</h2>
+        <p class="mb-4">Are you sure you want to delete <strong>{{ year.batch_year }}</strong>?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg">Yes, Delete</button>
+            <a href="{% url 'academic_year_list' %}" class="ml-2 bg-gray-500 text-white px-4 py-2 rounded-lg">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

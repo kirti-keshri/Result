@@ -46,8 +46,8 @@ class Teacher(models.Model):
 class AcademicYear(models.Model):
     school = models.ForeignKey(School,on_delete=models.CASCADE)
     batch_year =models.CharField(max_length=200)
-    start_year= models.DateField()
-    end_year =  models.DateField()
+    start_date = models.DateField()
+    end_date =  models.DateField()
     is_active =models.BooleanField(default=True)
     
     def __str__(self):
@@ -72,6 +72,7 @@ class Section(models.Model):
 class Student(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     year= models.ForeignKey(AcademicYear,on_delete=models.CASCADE)
+    admission_no = models.CharField(max_length=20)
     classes = models.ForeignKey(ClassRoom,on_delete=models.CASCADE,related_name="class_sec")
     section = models.ForeignKey(Section,on_delete=models.CASCADE,related_name="section_sec")
     reg_no = models.CharField(max_length=50)
@@ -82,7 +83,8 @@ class Student(models.Model):
     email = models.EmailField(null=True,blank=True)
     Phone = models.CharField(max_length=15,null=True,blank=True)
     gender=models.CharField(max_length =10 ,choices=[("Male","Male"),("Female","Female"),("Other","Other")])
-
+    address = models.TextField()
+    is_active = models.BooleanField(default=True)
     class Meta:
         unique_together = [('school', 'reg_no'),('school','roll_no')]
 

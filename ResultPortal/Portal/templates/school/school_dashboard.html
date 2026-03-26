@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="flex bg-gray-200  h-screen">
+  <!-- sidebar -->
+  <div
+  class="flex flex-col w-2/12 bg-slate-900 text-white jutsify-end h-screen"
+  >
+  <h2 class="text-2xl font-bold mb-8 mt-8">School Pannel</h2>
+    <a href="{% url 'school_dash' %}" class="hover:bg-slate-700 p-2 rounded"
+      >Dashboard</a
+    >
+    <a href="{% url 'academic_year_list' %}" class="hover:bg-slate-700 p-2 rounded">
+      Academic Years</a
+    >
+    <a href="" class="hover:bg-slate-700 p-2 rounded"
+      >Classes</a
+    >
+    <a href="" class="hover:bg-slate-700 p-2 rounded"
+      >Sections</a
+    >
+    <a href="" class="hover:bg-slate-700 p-2 rounded"
+      >Teachers</a
+    >
+    <a href="" class="hover:bg-slate-700 p-2 rounded"
+      >Subjects</a
+    >
+    <a href="" class="hover:bg-slate-700 p-2 rounded"
+      >Exams</a
+    >
+    <div class="flex flex-col">
+      <a href="" class="p-2 rounded">Logout</a>
+    </div>
+  </div>
+
+  <!-- contain -->
+
+  <div class="flex-1 p-6">
+    <h1 class="text-3xl font-bold mb-2">{{school.name}}</h1>
+    <p class="text-gray-600 mb-6 font-semibold">School Dashboard</p>
+
+    <div class="grid grid-cols-4 gap-5">
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Teachers</p>
+            <h2 class="text-3xl font-bold">{{total_teachers}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Students</p>
+            <h2 class="text-3xl font-bold">{{total_students}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Classes</p>
+            <h2 class="text-3xl font-bold">{{total_classes}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Sections</p>
+            <h2 class="text-3xl font-bold">{{total_sections}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Active Years</p>
+            <h2 class="text-3xl font-bold">{{active_years}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Subjects</p>
+            <h2 class="text-3xl font-bold">{{total_subjects}}</h2>
+        </div>
+        <div class="bg-white p-5 rounded-2xl">
+            <p class="text-gray-500">Exams</p>
+            <h2 class="text-3xl font-bold">{{total_exams}}</h2>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

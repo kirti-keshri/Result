@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from Portal.views import *
 from Portal.portalViews import *
+from Portal.schoolViews import *
  
 
 
@@ -39,6 +40,11 @@ urlpatterns = [
     
     #school admin
     path("school_dashboard/",school_dashboard,name="school_dash"),
+    path("school/academic_years/",academic_year_list,name="academic_year_list"),
+    path("school/academic_years/add/",add_academic_year,name="add_academic_year"),
+    path("school/academic_years/edit/<int:academic_id>/",update_academic_year,name="update_academic_year"),
+    path("school/academic_years/delete/<int:academic_id>/",delete_academic_year,name="delete_academic_year"),
+    path("school/academic_years/toggle/<int:academic_id>/",toggle_academic_year,name="toggle_academic_year"),
     
     #teacher
     path("teacher_dashboard/",teacher_dashboard,name="teacher_dash"),

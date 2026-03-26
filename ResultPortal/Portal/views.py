@@ -118,11 +118,6 @@ def student_dashboard(request):
 def teacher_dashboard(request):
     return render(request, "teacher_dashboard.html")
 
-# @login_required
-def school_dashboard(request):
-    # profile =UserProfile.objects.get(user=request.user)
-    # school = role.school
-    return render(request, "school_dashboard.html",)
-# {"school":school}
+
 
 
