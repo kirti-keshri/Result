@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto p-6 bg-white shadow rounded">
+    <h1 class="text-2xl font-bold mb-4">
+        {% if student %}Edit Student{% else %}Add Student{% endif %}
+    </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
+            Save
+        </button>
+    </form>
+</div>
+
+{% endblock %}

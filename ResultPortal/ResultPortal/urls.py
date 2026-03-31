@@ -45,6 +45,18 @@ urlpatterns = [
     path("school/academic_years/edit/<int:academic_id>/",update_academic_year,name="update_academic_year"),
     path("school/academic_years/delete/<int:academic_id>/",delete_academic_year,name="delete_academic_year"),
     path("school/academic_years/toggle/<int:academic_id>/",toggle_academic_year,name="toggle_academic_year"),
+    path("school/students/", student_list, name="student_list"),
+    path("school/students/add/",add_student, name="add_student"),
+    path("school/students/edit/<int:student_id>/", edit_student, name="edit_student"),
+    path("school/students/delete/<int:student_id>/",delete_student, name="delete_student"),
+    path("school/class/", class_list, name="class_list"),
+    path("school/class/add/",add_class, name="add_class"),
+    path("school/class/edit/<int:class_id>/", edit_class, name="edit_class"),
+    path("school/class/delete/<int:class_id>/",delete_class, name="delete_class"),
+    path("school/section", section_list, name="section_list"),
+    path("school/section/add/",add_section, name="add_section"),
+    path("school/section/edit/<int:section_id>/", edit_section, name="edit_section"),
+    path("school/section/delete/<int:section_id>/",delete_section, name="delete_section"),
     
     #teacher
     path("teacher_dashboard/",teacher_dashboard,name="teacher_dash"),

@@ -55,31 +55,31 @@ class AcademicYear(models.Model):
 
 #class
 class ClassRoom(models.Model):
-    school = models.ForeignKey(School,on_delete=models.CASCADE,related_name="schools")
+    school = models.ForeignKey(School,on_delete=models.CASCADE,related_name="classes")
     class_name = models.CharField(max_length=50)
     def __str__(self):
        return  self.class_name
 
 #section 
 class Section(models.Model):
-    class_ref = models.ForeignKey(ClassRoom,on_delete=models.CASCADE)
+    class_ref = models.ForeignKey(ClassRoom,on_delete=models.CASCADE,related_name="sections")
     section_name = models.CharField(max_length=50)
     
     def __str__(self):
-        return f"{self.class_ref}{self.section_name}"
+        return f"{self.class_ref}-{self.section_name}"
     
 # student
 class Student(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     year= models.ForeignKey(AcademicYear,on_delete=models.CASCADE)
-    admission_no = models.CharField(max_length=20)
+    admission_no = models.CharField(max_length=30, unique = True)
     classes = models.ForeignKey(ClassRoom,on_delete=models.CASCADE,related_name="class_sec")
     section = models.ForeignKey(Section,on_delete=models.CASCADE,related_name="section_sec")
     reg_no = models.CharField(max_length=50)
     roll_no = models.CharField(max_length=50,unique=True)
     name = models.CharField(max_length=200)
     dob = models.DateField()
-    Aadhar_no = models.CharField(unique=True,max_length=12)
+    Aadhar_no = models.CharField(unique=True,max_length=12,null= True,blank= True)
     email = models.EmailField(null=True,blank=True)
     Phone = models.CharField(max_length=15,null=True,blank=True)
     gender=models.CharField(max_length =10 ,choices=[("Male","Male"),("Female","Female"),("Other","Other")])

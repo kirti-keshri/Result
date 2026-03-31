@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="p-6">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Classes</h1>
+        <a href="{% url 'add_class' %}" class="bg-blue-600 text-white px-4 py-2 rounded">
+            Add Class
+        </a>
+    </div>
+
+    <table class="w-full border border-gray-300">
+        <thead class="bg-gray-100">
+            <tr>
+                <th class="border p-2">Class Name</th>
+                <th class="border p-2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class in class_ref %}
+            <tr>
+                <td class="border p-2">{{ class.class_name}}</td>
+                <td class="border p-2">
+                    <a href="{% url 'edit_class' class.id %}" class="text-blue-600">Edit</a>
+                    |
+                    <a href="{% url 'delete_class' class.id %}" class="text-red-600">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="border p-2 text-center">No classes found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

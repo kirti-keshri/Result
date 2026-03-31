@@ -12,10 +12,10 @@
     <a href="{% url 'academic_year_list' %}" class="hover:bg-slate-700 p-2 rounded">
       Academic Years</a
     >
-    <a href="" class="hover:bg-slate-700 p-2 rounded"
+    <a href="{% url 'class_list' %}" class="hover:bg-slate-700 p-2 rounded"
       >Classes</a
     >
-    <a href="" class="hover:bg-slate-700 p-2 rounded"
+    <a href="{% url 'section_list' %}" class="hover:bg-slate-700 p-2 rounded"
       >Sections</a
     >
     <a href="" class="hover:bg-slate-700 p-2 rounded"
@@ -26,6 +26,9 @@
     >
     <a href="" class="hover:bg-slate-700 p-2 rounded"
       >Exams</a
+    >
+    <a href="{% url 'student_list' %}" class="hover:bg-slate-700 p-2 rounded"
+      >Student</a
     >
     <div class="flex flex-col">
       <a href="" class="p-2 rounded">Logout</a>

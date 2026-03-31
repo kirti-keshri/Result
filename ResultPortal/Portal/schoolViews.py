@@ -100,6 +100,102 @@ def add_student(request):
     if request.method =="POST":
         if form.is_valid():
             form.save()
-            
-        
+            return redirect("student_list")
+    return render(request,"school/student_form.html",{"form":form,"school":school})
 
+#update student
+
+def edit_student(request,student_id):
+    school = School.objects.first()
+    student = get_object_or_404(Student, id = student_id)
+    form = StudentForm(request.POST or None, instance= student)
+    
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("student_list")
+    return render(request,"school/student_form.html",{"form":form,"school":school,"student":student})
+            
+#delete student
+
+def delete_student(request,student_id):
+    student = get_object_or_404(Student, id=student_id)           
+    if request.method == "POST":
+        student.delete()
+        return redirect("student_list")
+    return render(request,"school/student_confirm_delete.html",{"student":student})    
+
+# crud class
+
+def class_list(request):
+    school = School.objects.first()
+    class_ref = ClassRoom.objects.filter(school=school)
+    
+    return render(request,"school/class_list.html",{"school":school,"class_ref":class_ref})
+
+def add_class(request):
+    school = School.objects.first()
+    form = ClassForm(request.POST or None)
+    if request.method =="POST":
+       if form.is_valid():
+           data = form.save(commit=False)
+           data.school= school
+           data.save()
+           return redirect("class_list")
+    return render(request,"school/class_form.html",{"form":form})
+       
+def edit_class(request,class_id):
+    school = School.objects.first()
+    class_ref = get_object_or_404(ClassForm,id =class_id,school=school)
+    form = ClassForm(request.POST or None, instance=class_ref)
+    
+    if form.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("class_list")
+    return render(request,"school/class_form.html",{"form":form})
+
+def delete_class(request,class_id):
+    school = School.objects.first()
+    class_ref = get_object_or_404(ClassRoom,id=class_id,school=school)
+    if request.method =="POST":
+        class_ref.delete()
+        return redirect("class_list")
+    
+# crud of section
+def section_list(request):
+    school=School.objects.first()
+    section = Section.objects.filter(class_ref__school=school)
+    
+    return render(request,"school/section.html",{"section":section,"school":school})
+
+def add_section(request):
+    school = School.objects.first()
+    form = SectionForm(request.POST or None)
+    # restrict class dropdown to current school
+    form.fields["class_ref"].queryset = ClassRoom.objects.filter(school=school)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("section_list")
+    return redirect(request,"school/section_form.html",{"school":school,"form":form})
+
+def edit_section(request,section_id):
+    school = School.objects.first()
+    section = get_object_or_404(Section,id=section_id,school=school)
+    form = SectionForm(request.POST or None ,instance=section)
+    
+    # restrict class dropdown to current school
+    form.fields["class_ref"].queryset = ClassRoom.objects.filter(school=school)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("section_list")
+        return redirect(request,"school/section_form.list",{"form":form,"section":section})
+    
+def delete_section(request,section_id):
+    school = School.objects.first()
+    section = get_object_or_404(Section,id=section_id,school=school)
+    if request.method == "POST":
+        section.delete()
+        return redirect("section_list")

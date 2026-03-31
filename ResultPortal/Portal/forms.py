@@ -20,5 +20,15 @@ class StudentForm(ModelForm):
         model = Student
         fields ="__all__"   
         
+class ClassForm(ModelForm):
+    class Meta:
+        model= ClassRoom
+        fields = "__all__"
+        
+class SectionForm(ModelForm):
+    class Meta:
+        model = Section
+        fields = "__all__"
+        
         
         
